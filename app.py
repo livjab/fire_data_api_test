@@ -135,13 +135,10 @@ def check_new_df(df):
 
 
 
-# pulls a new df every hour
+# manually update csv
+@app.route('/data/update', methods=['POST'])
 def check_modus_data():
     df = check_new_df(df)
-
-scheduler = BackgroundScheduler()
-scheduler.add_job(check_modus_data, 'interval', hours=1)
-scheduler.start()
 
 # check our df size
 @app.route('/data/size', methods=['GET'])
@@ -155,10 +152,10 @@ def df_head():
     head = df.head().to_json()
     return jsonify({'df_head' : head}), 201
 
-# manually update csv
-@app.route('/data/update', methods=['POST'])
-def check_modus_data():
-    df = check_new_df(df)
+# pulls a new df every hour
+scheduler = BackgroundScheduler()
+scheduler.add_job(check_modus_data, 'interval', hours=1)
+scheduler.start()
 
 # Start process
 if __name__ == '__main__':
