@@ -138,8 +138,10 @@ def check_new_df(df):
 # manually update csv
 @app.route('/data/update', methods=['GET'])
 def check_modus_data():
-    df = check_new_df(df)
-    size = df.shape
+    new_df = check_new_df(df)
+    size = new_df.shape
+    df = new_df.copy()
+    
     return jsonify({'new df size ': size}), 201
 
 # check our df size
