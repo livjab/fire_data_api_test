@@ -155,6 +155,11 @@ def df_head():
     head = df.head().to_json()
     return jsonify({'df_head' : head}), 201
 
+# manually update csv
+@app.route('/data/update', methods=['POST'])
+def check_modus_data():
+    df = check_new_df(df)
+
 # Start process
 if __name__ == '__main__':
     app.run()
