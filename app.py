@@ -139,6 +139,8 @@ def check_new_df(df):
 @app.route('/data/update', methods=['GET'])
 def check_modus_data():
     df = check_new_df(df)
+    size = df.shape
+    return jsonify({'new df size ': size}), 201
 
 # check our df size
 @app.route('/data/size', methods=['GET'])
