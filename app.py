@@ -136,7 +136,7 @@ def check_new_df(df):
 
 
 # manually update csv
-@app.route('/data/update', methods=['POST'])
+@app.route('/data/update', methods=['GET'])
 def check_modus_data():
     df = check_new_df(df)
 
