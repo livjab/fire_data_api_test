@@ -120,31 +120,34 @@ def pull_modus(url = modis_url):
 #defines our first df from memory
 df = pd.read_csv('modus_df', sep=',')
     
-def check_new_df(df=df):
+def check_new_df():
     """
     Pulls a new df from modus and compares it to the live df
     """
+    new_df = pull_modus()
+
+    #compares new_df to existing df, if equal it passes
     try:
-        new_df = pull_modus()
-#todo document
         if assert_frame_equal(df, new_df):
             pass
-
         else:
-            df = new_df.copy()
+            pass
 
-        return df
-        
-    except Exception as e:
-        return jsonify({'error' : e})
-
-
+    except:
+        df = new_df.copy()
+        return df        
+    
+# pulls a new df every hour
+scheduler = BackgroundScheduler()
+scheduler.add_job(check_new_df, 'interval', hours=1)
+scheduler.start()
 
 # manually update csv
 @app.route('/data/update', methods=['GET'])
 def check_modus_data():
     new_df = check_new_df()
     size = new_df.shape
+    global df
     df = new_df.copy()
 
     return jsonify({'new df size ': size}), 201
@@ -160,11 +163,6 @@ def df_size():
 def df_head():
     head = df.head().to_json()
     return jsonify({'df_head' : head}), 201
-
-# pulls a new df every hour
-scheduler = BackgroundScheduler()
-scheduler.add_job(check_new_df, 'interval', hours=1)
-scheduler.start()
 
 # Start process
 if __name__ == '__main__':
