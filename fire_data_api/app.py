@@ -8,6 +8,7 @@ an alert if there are active fires within that perimter.
 # Flask App Imports
 from flask import Flask, jsonify, request
 from flask_restful import Resource, Api, reqparse
+from flask_cors import CORS
 from json import dumps
 
 # DS Logic imports
@@ -27,6 +28,8 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 # define flask app and api
 app = Flask(__name__)
+# enable CORS on all app routes
+CORS(app)
 api = Api(app)
 
 def haversine(lon1, lat1, lon2, lat2):
