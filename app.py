@@ -8,7 +8,7 @@ an alert if there are active fires within that perimter.
 # Flask App Imports
 from flask import Flask, jsonify, request
 from flask_restful import Resource, Api, reqparse
-# from flask_cors import CORS, cross_origin
+from flask_cors import CORS #, cross_origin
 from json import dumps
 
 # DS Logic imports
@@ -29,7 +29,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 # define flask app and api
 app = Flask(__name__)
 # enable CORS on all app routes
-# CORS(app, supports_credentials=True)
+CORS(app)
 api = Api(app)
 
 
@@ -92,7 +92,7 @@ class CheckFires(Resource):
         values = request.get_json()
 
         user_coords = values['user_coords'] #I want to get a json like:
-        #{'user_coords' : (long, lat)} 
+        #{'user_coords' : (long, lat), 'distance': number} 
         try:
             perimiter = values['distance']
         except:
@@ -113,14 +113,14 @@ def pull_modus(url = modis_url):
     """
     Get's modus data.
     """
-    df = pd.read_csv(modis_url, sep=',')
+    df = pd.read_csv(url, sep=',')
 
     return df
 
 #defines our first df from memory
 df = pd.read_csv('modus_df', sep=',')
     
-def check_new_df():
+def check_new_df(df=df):
     """
     Pulls a new df from modus and compares it to the live df
     """
@@ -135,19 +135,19 @@ def check_new_df():
 
         return df
         
-    except:
-        pass # 'Modus URL not reachable'
+    except Exception as e:
+        return jsonify({'error' : e})
 
 
 
 # manually update csv
-# @app.route('/data/update', methods=['GET'])
-# def check_modus_data():
-#     new_df = check_new_df()
-#     size = new_df.shape
-#     df = new_df.copy()
+@app.route('/data/update', methods=['GET'])
+def check_modus_data():
+    new_df = check_new_df()
+    size = new_df.shape
+    df = new_df.copy()
 
-#     return jsonify({'new df size ': size}), 201
+    return jsonify({'new df size ': size}), 201
 
 # check our df size
 @app.route('/data/size', methods=['GET'])
