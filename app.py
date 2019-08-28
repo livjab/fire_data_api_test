@@ -148,7 +148,7 @@ def check_modus_data():
     new_df = check_new_df()
     size = new_df.shape
     global df
-    df = new_df.copy()
+    df = new_df
 
     return jsonify({'new df size ': size}), 201
 
