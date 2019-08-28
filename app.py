@@ -158,7 +158,7 @@ def df_head():
 
 # pulls a new df every hour
 scheduler = BackgroundScheduler()
-scheduler.add_job(check_modus_data, 'interval', hours=1)
+scheduler.add_job(check_new_df, 'interval', hours=1)
 scheduler.start()
 
 # Start process
