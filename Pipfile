@@ -13,6 +13,7 @@ flask-restful = "*"
 python-dotenv = "*"
 apscheduler = "*"
 gunicorn = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.7"
