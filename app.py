@@ -28,9 +28,9 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 # define flask app and api
 app = Flask(__name__)
-# enable CORS on all app routes
-CORS(app)
 api = Api(app)
+# enable CORS on all api routes
+CORS(api)
 
 def haversine(lon1, lat1, lon2, lat2):
         """
