@@ -115,7 +115,7 @@ def pull_modus(url = modis_url):
 #defines our first df from memory
 df = pd.read_csv('modus_df', sep=',')
     
-def check_new_df(df):
+def check_new_df():
     """
     Pulls a new df from modus and compares it to the live df
     """
@@ -137,8 +137,8 @@ def check_new_df(df):
 
 # manually update csv
 @app.route('/data/update', methods=['GET'])
-def check_modus_data(df):
-    new_df = check_new_df(df)
+def check_modus_data():
+    new_df = check_new_df()
     size = new_df.shape
     df = new_df.copy()
 
