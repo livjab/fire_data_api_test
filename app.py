@@ -8,7 +8,7 @@ an alert if there are active fires within that perimter.
 # Flask App Imports
 from flask import Flask, jsonify, request
 from flask_restful import Resource, Api, reqparse
-from flask_cors import CORS
+# from flask_cors import CORS, cross_origin
 from json import dumps
 
 # DS Logic imports
@@ -28,9 +28,11 @@ from apscheduler.schedulers.background import BackgroundScheduler
 
 # define flask app and api
 app = Flask(__name__)
+# enable CORS on all app routes
+# CORS(app, supports_credentials=True)
 api = Api(app)
-# enable CORS on all api routes
-CORS(api)
+
+
 
 def haversine(lon1, lat1, lon2, lat2):
         """
@@ -139,13 +141,13 @@ def check_new_df():
 
 
 # manually update csv
-@app.route('/data/update', methods=['GET'])
-def check_modus_data():
-    new_df = check_new_df()
-    size = new_df.shape
-    df = new_df.copy()
+# @app.route('/data/update', methods=['GET'])
+# def check_modus_data():
+#     new_df = check_new_df()
+#     size = new_df.shape
+#     df = new_df.copy()
 
-    return jsonify({'new df size ': size}), 201
+#     return jsonify({'new df size ': size}), 201
 
 # check our df size
 @app.route('/data/size', methods=['GET'])
