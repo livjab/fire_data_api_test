@@ -14,6 +14,7 @@ python-dotenv = "*"
 apscheduler = "*"
 gunicorn = "*"
 flask-cors = "*"
+flask-sqlalchemy = "*"
 
 [requires]
 python_version = "3.7"

@@ -118,7 +118,8 @@ def pull_modus(url = modis_url):
     return df
 
 #defines our first df from memory
-df = pd.read_csv('modus_df', sep=',')
+# df = pd.read_csv('modus_df', sep=',')
+df = pull_modus()
     
 def check_new_df():
     """
