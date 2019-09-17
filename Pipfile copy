@@ -1,0 +1,24 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+pandas = "*"
+numpy = "*"
+flask = "*"
+flask-restful = "*"
+python-dotenv = "*"
+apscheduler = "*"
+gunicorn = "*"
+flask-sqlalchemy = "*"
+flask-cors = "*"
+sklearn-externals = "*"
+sklearn-pipeline = "*"
+sklearn-compose = "*"
+sklearn-preprocessing = "*"
+
+[requires]
+python_version = "3.7"

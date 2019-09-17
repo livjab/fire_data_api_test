@@ -13,8 +13,9 @@ flask-restful = "*"
 python-dotenv = "*"
 apscheduler = "*"
 gunicorn = "*"
-flask-cors = "*"
 flask-sqlalchemy = "*"
+flask-cors = "*"
+scikit-learn = "==0.20.3"
 
 [requires]
 python_version = "3.7"
